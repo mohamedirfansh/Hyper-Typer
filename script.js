@@ -147,6 +147,7 @@ window.onload = function() {
     document.querySelector("#word").innerHTML = currentWord;
 }
 
+// Function to move the color around the circle
 function movers(index) {
     rotationOffset += rotationAddition;
     for (var i = index; i < 4; i++){
