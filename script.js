@@ -99,31 +99,52 @@ var red = 0;
 var green = 255;
 var blue = 0;
 var rotationOffset = -90;
-var colorAddition = 9;
+var colorAddition = 25.5;
+var rotationAddition = 9;
 var countdown = 4;
 var quaters = document.querySelectorAll(".quaters");
 var score = 0;
 var highscore = 0;
 
+function displayWordOnPanel(final) {
+    // To fill the scrolling words with the upcoming words
+    document.getElementsByTagName("ul")[0].innerHTML = final;
+    // Displaying the current word on the arrow in the scrolling word panel
+    var currentScrollWord = document.getElementsByTagName("li")[pointer];
+    currentScrollWord.style.fontSize = "19pt";
+    currentScrollWord.style.fontWeight = "bold";
+    currentScrollWord.style.color = "rgb(160, 57, 87)";
+}
+
+function bouncyIntro() {
+    // document.getElementsByClassName("bouncy")[0].classList.add("bouncyIntro");
+    document.querySelector("#q1").classList.add("q1c");
+    document.querySelector("#q2").classList.add("q2c");
+    document.querySelector("#q3").classList.add("q3c");
+    document.querySelector("#q3").classList.add("q4c");
+}
+
+function movers(index) {
+    rotationOffset += rotationAddition;
+    for (var i = index; i < 4; i++){
+        document.getElementsByClassName("movers")[i].style.transform = `rotate(${rotationOffset.toString()}deg)`;
+    }
+}
+
+
+
+function changeLevel(newLevel) {
+    input.value = "";
+    this.bouncyIntro();
+}
 // When the apps is first started or upon refresh
 window.onload = function() {
     var final = "";
     for(var i = 0; i < words[level].length; i++){
         final += `<li>${words[level][i]}</li>`;
     }
-    // document.getElementsByClassName("bouncy")[0].classList.add("bouncyIntro");
-    document.querySelector("#q1").classList.add("q1c");
-    document.querySelector("#q2").classList.add("q2c");
-    document.querySelector("#q3").classList.add("q3c");
-    document.querySelector("#q3").classList.add("q4c");
-    // To fill the scrolling words with the upcoming words
-    document.getElementsByTagName("ul")[0].innerHTML = final;
+    this.bouncyIntro();
+    this.displayWordOnPanel(final);
     // Display the word to type
     document.querySelector("#word").innerHTML = currentWord;
-    // Displaying the current word on the arrow in the scrolling word panel
-    var currentScrollWord = document.getElementsByTagName("li")[pointer];
-    currentScrollWord.style.fontSize = "19pt";
-    currentScrollWord.style.fontWeight = "bold";
-    currentScrollWord.style.color = "rgb(160, 57, 87)";
-
 }
