@@ -147,6 +147,14 @@ window.onload = function() {
     document.querySelector("#word").innerHTML = currentWord;
 }
 
+input.onfocus = function() {
+    input.placeholder = "Type the word above";
+}
+
+input.onblur = function() {
+    input.placeholder = "Click to start typing";
+}
+
 // Function to move the color around the circle
 function movers(index) {
     rotationOffset += rotationAddition;
@@ -179,8 +187,8 @@ function resetCirlce(){
     quaters.forEach(quater => {
         var newColor = `rgb(${red.toString()}, ${green.toString()}, ${blue.toString()})`;
         quater.style.borderLeftColor = newColor;
-        quarter.style.borderTopColor = newColor;
-        quarter.style.transform = `rotate(${rotationOffset.toString()}deg)`;
+        quater.style.borderTopColor = newColor;
+        quater.style.transform = `rotate(${rotationOffset.toString()}deg)`;
     })
 }
 
