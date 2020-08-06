@@ -113,7 +113,7 @@ img:hover{
     height: 0;
     border-top: 13px solid transparent;
     border-bottom: 13px solid transparent;
-    border-left: 13px solid #edc7b7;
+    border-left: 13px solid #eebca7;
     top: 137px;
     opacity: 0;
     animation: buttin 0.5s ease-out 2.3s forwards;
@@ -161,6 +161,12 @@ img:hover{
     transition: font-size 0.2s linear, color 0.2s linear;
 }
 
+#scrollingWords li:hover {
+    font-size: larger;
+    color: rgb(160, 57, 87);
+    cursor: default;
+}
+
 /* ----------Styles for center of app---------- */
 #center {
     display: flex;
@@ -193,10 +199,10 @@ img:hover{
     border-top-left-radius: 175px;
     border-top-width: 5px;
     border-top-style: solid;
-    border-top-color: #00ff8a;
+    border-top-color: #00ff00;
     border-left-width: 5px;
     border-left-style: solid;
-    border-left-color: #00ff8a;
+    border-left-color: #00ff00;
     width: 175px;
     height: 175px;
     transform: rotate(-90deg);
@@ -228,118 +234,118 @@ img:hover{
 
 @keyframes wheel1 {
     0% {
-        border-color: #00ff8a;
+        border-color: rgb(0, 255, 0);
     }
     10% {
-        border-color: #f9ff58;
+        border-color: rgb(255, 255, 0);
     }
     20% {
-        border-color: #ed5f46;
+        border-color: rgb(255, 0, 0);
     }
     30% {
-        border-color: #ff57d1;
+        border-color: rgb(255, 0, 255);
     }
     53% {
-        border-color: #ed5f46;
+        border-color: rgb(255, 0, 0);
     }
     76% {
-        border-color: #f9ff58;
+        border-color: rgb(255, 255, 0);
     }
     100% {
-        border-color: #00ff8a;
+        border-color: rgb(0, 255, 0);
     }
 }
 
 @keyframes wheel2 {
     0% {
         transform: rotate(-90deg);
-        border-color: #00ff8a;
+        border-color: rgb(0, 255, 0);
     }
     10% {
         transform: rotate(0deg);
-        border-color: #f9ff58;
+        border-color: rgb(255, 255, 0);
     }
     20% {
         transform: rotate(0deg);
-        border-color: #ed5f46;
+        border-color: rgb(255, 0, 0);
     }
     30% {
         transform: rotate(0deg);
-        border-color: #ff57d1;
+        border-color: rgb(255, 0, 255);
     }
     53% {
         transform: rotate(0deg);
-        border-color: #ed5f46;
+        border-color: rgb(255, 0, 0);
     }
     76% {
         transform: rotate(0deg);
-        border-color: #f9ff58;
+        border-color: rgb(255, 255, 0);
     }
     100% {
         transform: rotate(-90deg);
-        border-color: #00ff8a;
+        border-color: rgb(0, 255, 0);
     }
 }
 
 @keyframes wheel3 {
     0% {
         transform: rotate(-90deg);
-        border-color: #00ff8a;
+        border-color: rgb(0, 255, 0);
     }
     10% {
         transform: rotate(0deg);
-        border-color: #f9ff58;
+        border-color: rgb(255, 255, 0);
     }
     20% {
         transform: rotate(90deg);
-        border-color: #ed5f46;
+        border-color: rgb(255, 0, 0);
     }
     30% {
         transform: rotate(90deg);
-        border-color: #ff57d1;
+        border-color: rgb(255, 0, 255);
     }
     53% {
         transform: rotate(90deg);
-        border-color: #ed5f46;
+        border-color: rgb(255, 0, 0);
     }
     76% {
         transform: rotate(0deg);
-        border-color: #f9ff58;
+        border-color: rgb(255, 255, 0);
     }
     100% {
         transform: rotate(-90deg);
-        border-color: #00ff8a;
+        border-color: rgb(0, 255, 0);
     }
 }
 
 @keyframes wheel4 {
     0% {
         transform: rotate(-90deg);
-        border-color: #00ff8a;
+        border-color: rgb(0, 255, 0);
     }
     10% {
         transform: rotate(0deg);
-        border-color: #f9ff58;
+        border-color: rgb(255, 255, 0);
     }
     20% {
         transform: rotate(90deg);
-        border-color: #ed5f46;
+        border-color: rgb(255, 0, 0);
     }
     30% {
         transform: rotate(180deg);
-        border-color: #ff57d1;
+        border-color: rgb(255, 0, 255);
     }
     53% {
         transform: rotate(90deg);
-        border-color: #ed5f46;
+        border-color: rgb(255, 0, 0);
     }
     76% {
         transform: rotate(0deg);
-        border-color: #f9ff58;
+        border-color: rgb(255, 255, 0);
     }
     100% {
         transform: rotate(-90deg);
-        border-color: #00ff8a;
+        border-color: rgb(0, 255, 0);
     }
 }
 /* *********TO REMOVE********* */
