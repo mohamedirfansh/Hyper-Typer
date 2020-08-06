@@ -118,20 +118,20 @@ function displayWordOnPanel(final) {
 }
 
 function addBouncyIntro() {
-    // document.getElementsByClassName("bouncy")[0].classList.add("bouncyIntro");
-    document.querySelector("#q1").classList.add("q1c");
-    document.querySelector("#q2").classList.add("q2c");
-    document.querySelector("#q3").classList.add("q3c");
-    document.querySelector("#q3").classList.add("q4c");
+    document.getElementsByClassName("bouncy")[0].classList.add("bouncyIntro");
+    document.getElementById("q1").classList.add("q1c");
+    document.getElementById("q2").classList.add("q2c");
+    document.getElementById("q3").classList.add("q3c");
+    document.getElementById("q4").classList.add("q4c");
 }
 
 function removeBouncyIntro() {
     document.getElementsByClassName("bouncy")[0].classList.remove("bouncyIntro");
     document.getElementsByClassName("bouncy")[0].style.opacity = "1";
-    document.querySelector("#q1").classList.remove("q1c");
-    document.querySelector("#q2").classList.remove("q2c");
-    document.querySelector("#q3").classList.remove("q3c");
-    document.querySelector("#q3").classList.remove("q4c"); 
+    document.getElementById("q1").classList.remove("q1c");
+    document.getElementById("q2").classList.remove("q2c");
+    document.getElementById("q3").classList.remove("q3c");
+    document.getElementById("q4").classList.remove("q4c"); 
     document.getElementsByClassName("bouncy")[0].classList.remove("bounce");  
 }
 
@@ -141,8 +141,8 @@ window.onload = function() {
     for(var i = 0; i < words[level].length; i++){
         final += `<li>${words[level][i]}</li>`;
     }
-    this.addBouncyIntro();
-    this.displayWordOnPanel(final);
+    addBouncyIntro();
+    displayWordOnPanel(final);
     // Display the word to type
     document.querySelector("#word").innerHTML = currentWord;
 }
@@ -157,14 +157,17 @@ function movers(index) {
 
 // Function to fill circle with colors as game progresses
 function setColors() {
-    if (green === 255 && red < 255 && blue ===0){
-        this.movers(1);
+    if (green === 255 && red < 255 && blue === 0){
+        red += colorAddition
+        movers(1);
     }
-    else if (green > 0 && red === 255 && blue ===0){
-        this.movers(2);
+    else if (green > 0 && red === 255 && blue === 0){
+        green -= colorAddition
+        movers(2);
     }
     else if (green === 0 && red === 255 && blue < 255){
-        this.movers(3);
+        blue += colorAddition
+        movers(3);
     }
 }
 
@@ -185,6 +188,7 @@ function resetCirlce(){
 function changeLevel(newLevel) {
     input.value = "";
     this.addBouncyIntro();
+    this.resetCirlce();
     // Set new level and change word list for use
     level = newLevel;
     pointer = 0;
@@ -229,7 +233,7 @@ function decodeHtml(html) {
 input.oninput = function() {
     if (level === 0 && pointer === 0 && input.value.length === 1){
         var timed = setInterval(clockHandler, 1000);
-        function clockHandler(timed) {
+        function clockHandler() {
             if (countdown > 0){
                 countdown--;
                 if (countdown === 0){
@@ -250,7 +254,7 @@ input.oninput = function() {
         }
     }
     removeBouncyIntro();
-
+    // To check if current word is typed correctly
     if (input.value === decodeHtml(words[level][pointer])) {
         setColors();
         setScore();
