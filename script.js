@@ -91,7 +91,7 @@ var level = 0;
 var pointer = 0;
 var currentWord = words[level][pointer];
 var input = document.querySelector("#inputField");
-var box = document.querySelector("#scrollingwords");
+var box = document.querySelector("#scrollingWords");
 var originalOffset = 133;
 var offset = 133;
 var nextOffset = 31;
@@ -101,7 +101,7 @@ var blue = 0;
 var rotationOffset = -90;
 var colorAddition = 25.5;
 var rotationAddition = 9;
-var originalCountdown = 5;
+var originalCountdown = 4;
 var countdown = originalCountdown;
 var quaters = document.querySelectorAll(".quaters");
 var score = 0;
@@ -212,7 +212,7 @@ function setScore() {
 function setHighScore() {
     if (score > highscore){
         highscore = score;
-        document.querySelector("#highscore").innerHTML = highscore.toString();
+        document.querySelector("#high").innerHTML = highscore.toString();
     }
     // Reset current score
     score = 0;
@@ -257,7 +257,7 @@ input.oninput = function() {
             countdown = 3;
         else
             countdown = 4;
-        document.getElementById("secs").innerHTML = countdown;
+        document.getElementById("seconds").innerHTML = countdown;
         if (blue === 255) {
             var n = level + 1;
             changeLevel(n);
