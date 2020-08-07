@@ -1,95 +1,9 @@
-var words =[
-    [ 
-        "next",
-        "short",
-        "nice",
-        "bottle",
-        "full",
-        "soda",
-        "vast",
-        "glue",
-        "close",
-        "hurry",
-        "robin",
-        "trace",
-        "rock",
-        "absent",
-        "cover",
-        "note",
-        "burst",
-        "relax",
-        "group",
-        "sad",
-        "rob",
-        "yell",
-        "pop",
-        "mix",
-        "fix",
-        "hot",
-        "pin",
-        "hill",
-        "wiry",
-        "dirt",
-    ],
-    [
-        "paddle",
-        "answer",
-        "awesome",
-        "distance",
-        "fertile",
-        "wakeful",
-        "belief",
-        "slippery",
-        "bizarre",
-        "learned",
-        "vivacious",
-        "grandmother",
-        "illegal",
-        "thirsty",
-        "wholesale",
-        "tenuous",
-        "skillful",
-        "deteriorate",
-        "poised",
-        "humorous",
-        "scrape",
-        "replace",
-        "languid",
-        "adjoining",
-        "interesting",
-        "stranger",
-        "polite",
-        "scissors",
-        "brainy",
-        "interrogation",  
-    ],
-    [
-        "return;",
-        "#include",
-        "'helloworld'",
-        "obj:1",
-        "call()",
-        "&lt;html&gt;",
-        "not_easy",
-        "more-dashes",
-        "camelCase",
-        "ASCII",
-        "array[]",
-        "printf('')",
-        "&lt;/html&gt;",
-        "^regex$",
-        "System.out.println()",
-    ],
-    [
-
-        
-    ],
-]
-
+var words = new Array;
+var url = "http://random-word-api.herokuapp.com/word?swear=0&&number=30"
 // Important variables for the app
 var level = 0;
 var pointer = 0;
-var currentWord = words[level][pointer];
+var currentWord;
 var input = document.querySelector("#inputField");
 var box = document.querySelector("#scrollingWords");
 var originalOffset = 133;
@@ -107,6 +21,26 @@ var quaters = document.querySelectorAll(".quaters");
 var score = 0;
 var highscore = 0;
 
+// Function to fetch words from the random-word api
+function apiRequest() {
+    fetch(url)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        var arr1 = new Array;
+        var arr2 = new Array;
+        var arr3 = new Array;
+        arr1 = data.splice(0, 10);
+        arr2 = data.splice(0, 10);
+        arr3 = data.splice(0, 10);
+        words.push(arr1);
+        words.push(arr2);
+        words.push(arr3);
+    })
+}
+
+// Function to display words on the side panel
 function displayWordOnPanel(final) {
     // To fill the scrolling words with the upcoming words
     document.getElementsByTagName("ul")[0].innerHTML = final;
@@ -117,6 +51,7 @@ function displayWordOnPanel(final) {
     currentScrollWord.style.color = "rgb(160, 57, 87)";
 }
 
+// Function to show the loading intro which is a bounce
 function addBouncyIntro() {
     document.getElementsByClassName("bouncy")[0].classList.add("bouncyIntro");
     document.getElementById("q1").classList.add("q1c");
@@ -135,16 +70,24 @@ function removeBouncyIntro() {
     document.getElementsByClassName("bouncy")[0].classList.remove("bounce");  
 }
 
-// When the apps is first started or upon refresh
-window.onload = function() {
+// Function to load and display the words on the screen
+function loadWords(){
+    currentWord = words[level][pointer];
     var final = "";
     for(var i = 0; i < words[level].length; i++){
         final += `<li>${words[level][i]}</li>`;
     }
-    addBouncyIntro();
     displayWordOnPanel(final);
     // Display the word to type
     document.querySelector("#word").innerHTML = currentWord;
+}
+
+// When the apps is first started or upon refresh
+window.onload = function() {
+    // Bouncy intro is the loading screen which allows for the data to be fetched from the api
+    addBouncyIntro();
+    apiRequest();
+    setTimeout(loadWords, 1000);
 }
 
 input.onfocus = function() {
@@ -192,11 +135,28 @@ function resetCirlce(){
     })
 }
 
+// Function that labels the level as easy, medium, hard
+function levelLabel() {
+    var labelOfLevel = document.getElementById("message");
+    if (level === 0){
+        labelOfLevel.innerHTML = "Easy";
+        labelOfLevel.style.color = "rgb(0, 255, 0)";
+    }
+    else if (level === 1){
+        labelOfLevel.innerHTML = "Medium";
+        labelOfLevel.style.color = "rgb(255, 255, 0)";
+    }
+    else if (level === 2){
+        labelOfLevel.innerHTML = "Hard";
+        labelOfLevel.style.color = "rgb(255, 0, 0)";
+    }
+}
+
 //TO CHANGE!
 function changeLevel(newLevel) {
     input.value = "";
-    this.addBouncyIntro();
-    this.resetCirlce();
+    addBouncyIntro();
+    resetCirlce();
     // Set new level and change word list for use
     level = newLevel;
     pointer = 0;
@@ -213,7 +173,7 @@ function changeLevel(newLevel) {
     currentScroll.style.fontWeight = "bold";
     currentScroll.style.color = "rgb(160, 57, 87)";
     var setLevel = level===2?"Coding":level;
-    document.getElementById("message").innerHTML = "Level-" + level.toString();
+    levelLabel();
     box.style.marginTop = offset.toString() + "px";
 }
 
