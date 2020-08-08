@@ -51,6 +51,18 @@ function displayWordOnPanel(final) {
     currentScrollWord.style.color = "rgb(160, 57, 87)";
 }
 
+// Function to scroll the small words on the side panel
+function displaySmallWordOnPanel() {
+    var currentScroll = document.getElementsByTagName("li")[pointer-1];
+    currentScroll.style.fontSize = "13pt";
+    currentScroll.style.fontWeight = "";
+    currentScroll.style.color = "rgb(208, 147, 129)";
+    currentScroll = document.getElementsByTagName("li")[pointer];
+    currentScroll.style.fontSize = "19pt";
+    currentScroll.style.fontWeight = "bold";
+    currentScroll.style.color = "rgb(160, 57, 87)";
+}
+
 // Function to show the loading intro which is a bounce
 function addBouncyIntro() {
     document.getElementsByClassName("bouncy")[0].classList.add("bouncyIntro");
@@ -60,6 +72,7 @@ function addBouncyIntro() {
     document.getElementById("q4").classList.add("q4c");
 }
 
+// Function to remove the bounce
 function removeBouncyIntro() {
     document.getElementsByClassName("bouncy")[0].classList.remove("bouncyIntro");
     document.getElementsByClassName("bouncy")[0].style.opacity = "1";
@@ -80,23 +93,6 @@ function loadWords(){
     displayWordOnPanel(final);
     // Display the word to type
     document.querySelector("#word").innerHTML = currentWord;
-}
-
-// When the apps is first started or upon refresh
-window.onload = function() {
-    // Bouncy intro is the loading screen which allows for the data to be fetched from the api
-    addBouncyIntro();
-    apiRequest();
-    setTimeout(loadWords, 3000);
-    confetti.start(1500);
-}
-
-input.onfocus = function() {
-    input.placeholder = "Type the word above";
-}
-
-input.onblur = function() {
-    input.placeholder = "Click to start typing";
 }
 
 // Function to move the color around the circle
@@ -153,7 +149,7 @@ function levelLabel() {
     }
 }
 
-//TO CHANGE!
+// Function to switch to the next level
 function changeLevel(newLevel) {
     input.value = "";
     addBouncyIntro();
@@ -161,28 +157,19 @@ function changeLevel(newLevel) {
     // Set new level and change word list for use
     level = newLevel;
     pointer = 0;
-    currentWord = words[level][pointer];
-    var final = "";
-    for(var i = 0; i < words[level].length; i++) {
-        final += "<li>" + words[level][i] + "</li>";
-    }
-    document.getElementsByTagName("ul")[0].innerHTML = final;
-    document.getElementById("word").innerHTML = currentWord;
+    loadWords();
     offset = originalOffset;
-    var currentScroll = document.getElementsByTagName("li")[pointer];
-    currentScroll.style.fontSize = "19pt";
-    currentScroll.style.fontWeight = "bold";
-    currentScroll.style.color = "rgb(160, 57, 87)";
-    var setLevel = level===2?"Coding":level;
     levelLabel();
     box.style.marginTop = offset.toString() + "px";
 }
 
+// Function to increase score when correct word is typed
 function setScore() {
     score += countdown;
     document.querySelector("#score").innerHTML = score.toString();
 }
 
+// Function to set the high score
 function setHighScore() {
     if (score > highscore){
         highscore = score;
@@ -193,12 +180,43 @@ function setHighScore() {
     document.querySelector("#score").innerHTML = score.toString();
 }
 
+// Function to retrieve the word
 function decodeHtml(html) {
     var textArea = document.createElement("textarea");
     textArea.innerHTML = html;
 	return textArea.value;
 }
 
+// Function to detect the difficulty so that the countdown time can be decreased
+function detectDifficulty(n) {
+    if (n === 0)
+        countdown = 5;
+    else if (n === 1)
+        countdown = 4;
+    else if (n === 2)
+        countdown = 3;
+
+    document.getElementById("seconds").innerHTML = countdown;
+}
+
+// When the apps is first started or upon refresh
+window.onload = function() {
+    // Bouncy intro is the loading screen which allows for the data to be fetched from the api
+    addBouncyIntro();
+    apiRequest();
+    setTimeout(loadWords, 3000);
+    confetti.start(1500);
+}
+
+input.onfocus = function() {
+    input.placeholder = "Type the word above";
+}
+
+input.onblur = function() {
+    input.placeholder = "Click to start typing";
+}
+
+// When the text input receives any input
 input.oninput = function() {
     if (level === 0 && pointer === 0 && input.value.length === 1){
         var timed = setInterval(clockHandler, 1000);
@@ -224,32 +242,19 @@ input.oninput = function() {
     }
     removeBouncyIntro();
     // To check if current word is typed correctly
-    
-
     if (input.value === decodeHtml(words[level][pointer])) {
         setColors();
         setScore();
-        if (level === 0)
-            countdown = 5;
-        else if (level === 1)
-            countdown = 4;
-        else if (level === 2)
-            countdown = 3;
-        document.getElementById("seconds").innerHTML = countdown;
+        detectDifficulty(level);
         if (blue === 255) {
             var n = level + 1;
-            if (n === 0)
-                countdown = 5;
-            else if (n === 1)
-                countdown = 4;
-            else if (n === 2)
-                countdown = 3;
-            document.getElementById("seconds").innerHTML = countdown;            
+            detectDifficulty(n);
             if (n === 3){
                 confetti.start(30000);
                 document.getElementById("word").innerHTML = "You Won!"
                 input.value = "";
                 input.blur();
+                input.placeholder = "Refresh to play again!";
             }
             else {
                 changeLevel(n);
@@ -259,14 +264,7 @@ input.oninput = function() {
             pointer += 1;
             currentWord = words[level][pointer];
             document.getElementById("word").innerHTML = currentWord;
-            var currentScroll = document.getElementsByTagName("li")[pointer-1];
-            currentScroll.style.fontSize = "13pt";
-            currentScroll.style.fontWeight = "";
-            currentScroll.style.color = "rgb(208, 147, 129)";
-            currentScroll = document.getElementsByTagName("li")[pointer];
-            currentScroll.style.fontSize = "19pt";
-            currentScroll.style.fontWeight = "bold";
-            currentScroll.style.color = "rgb(160, 57, 87)";
+            displaySmallWordOnPanel();
             document.getElementsByClassName("bouncy")[0].classList.add("bounce");
             offset = offset - nextOffset;
             quaters.forEach(quater => {
