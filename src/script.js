@@ -1,5 +1,5 @@
 var words = new Array;
-var url = "http://random-word-api.herokuapp.com/word?swear=0&&number=90"
+var url = "https://random-word-api.herokuapp.com/word?swear=0&&number=90"
 // Important variables for the app
 var level = 0;
 var pointer = 0;
