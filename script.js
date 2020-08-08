@@ -1,5 +1,5 @@
 var words = new Array;
-var url = "http://random-word-api.herokuapp.com/word?swear=0&&number=30"
+var url = "http://random-word-api.herokuapp.com/word?swear=0&&number=90"
 // Important variables for the app
 var level = 0;
 var pointer = 0;
@@ -15,7 +15,7 @@ var blue = 0;
 var rotationOffset = -90;
 var colorAddition = 25.5;
 var rotationAddition = 9;
-var originalCountdown = 4;
+var originalCountdown = 5;
 var countdown = originalCountdown;
 var quaters = document.querySelectorAll(".quaters");
 var score = 0;
@@ -31,9 +31,9 @@ function apiRequest() {
         var arr1 = new Array;
         var arr2 = new Array;
         var arr3 = new Array;
-        arr1 = data.splice(0, 10);
-        arr2 = data.splice(0, 10);
-        arr3 = data.splice(0, 10);
+        arr1 = data.splice(0, 30);
+        arr2 = data.splice(0, 30);
+        arr3 = data.splice(0, 30);
         words.push(arr1);
         words.push(arr2);
         words.push(arr3);
@@ -87,7 +87,8 @@ window.onload = function() {
     // Bouncy intro is the loading screen which allows for the data to be fetched from the api
     addBouncyIntro();
     apiRequest();
-    setTimeout(loadWords, 1000);
+    setTimeout(loadWords, 3000);
+    confetti.start(1500);
 }
 
 input.onfocus = function() {
@@ -223,17 +224,36 @@ input.oninput = function() {
     }
     removeBouncyIntro();
     // To check if current word is typed correctly
+    
+
     if (input.value === decodeHtml(words[level][pointer])) {
         setColors();
         setScore();
-        if (level === 0 && pointer >=19 && pointer != 29)
-            countdown = 3;
-        else
+        if (level === 0)
+            countdown = 5;
+        else if (level === 1)
             countdown = 4;
+        else if (level === 2)
+            countdown = 3;
         document.getElementById("seconds").innerHTML = countdown;
         if (blue === 255) {
             var n = level + 1;
-            changeLevel(n);
+            if (n === 0)
+                countdown = 5;
+            else if (n === 1)
+                countdown = 4;
+            else if (n === 2)
+                countdown = 3;
+            document.getElementById("seconds").innerHTML = countdown;            
+            if (n === 3){
+                confetti.start(30000);
+                document.getElementById("word").innerHTML = "You Won!"
+                input.value = "";
+                input.blur();
+            }
+            else {
+                changeLevel(n);
+            }
         }
         else {
             pointer += 1;
