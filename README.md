@@ -15,7 +15,7 @@ A challenging speed typing game to put your typing skills to the test. Written p
 
 ### 🔎 How it works
 
-The game pulls random words from an external API called [Random-Word-API](https://random-word-api.herokuapp.com/home) when the game starts. The player has to type these words correctly within the time limit. If the time is up and the word was not typed, the game ends. But if the word was correctly typed, the game continues to advance. After a certain number of words, the game increases its difficulty to medium followed by hard. The game is completed when you type all the words in the hard level correctly.
+The game pulls random words from an external API called [Random-Word-API](https://random-word-api.herokuapp.com/home) when the game starts. The player has to type these words correctly within the time limit. If the time is up and the word was not typed, the game ends. But if the word was correctly typed, the game continues to advance. After a certain number of words, the game increases its difficulty from easy to medium then hard. The game is completed when you type all the words in the hard level correctly.
 
 ## 🚀 Getting Started
 
